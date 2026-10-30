@@ -1,69 +1,142 @@
-import Image from "next/image";
+"use client";
+
+import { Suspense, useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { DENTAL_CLINICS, DentalClinic, getClinicById } from "@/data/clinics";
+import AgencyBar from "@/components/AgencyBar";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import ServicesSection from "@/components/ServicesSection";
+import DoctorSection from "@/components/DoctorSection";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import ReviewsSection from "@/components/ReviewsSection";
+import LocationSection from "@/components/LocationSection";
+import FaqSection from "@/components/FaqSection";
+import Footer from "@/components/Footer";
+import FloatingCta from "@/components/FloatingCta";
+import AppointmentModal from "@/components/AppointmentModal";
+
+function DentalApp() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const clientParam = searchParams.get("client");
+  const viewParam = searchParams.get("view");
+
+  const [currentClinic, setCurrentClinic] = useState<DentalClinic>(() => {
+    if (clientParam) {
+      return getClinicById(clientParam);
+    }
+    return DENTAL_CLINICS[0];
+  });
+
+  const [isClientMode, setIsClientMode] = useState<boolean>(viewParam === "client");
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (clientParam) {
+      setCurrentClinic(getClinicById(clientParam));
+    }
+    if (viewParam === "client") {
+      setIsClientMode(true);
+    }
+  }, [clientParam, viewParam]);
+
+  const handleSelectClinic = (id: string) => {
+    const found = getClinicById(id);
+    setCurrentClinic(found);
+    const newUrl = isClientMode ? `/?client=${id}&view=client` : `/?client=${id}`;
+    router.push(newUrl);
+  };
+
+  const handleOpenBooking = (serviceName?: string) => {
+    setSelectedService(serviceName);
+    setBookingModalOpen(true);
+  };
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col font-sans selection:bg-slate-900 selection:text-white text-slate-800">
+      {/* Top Agency Switcher Bar (Completely hidden in Client Mode) */}
+      <AgencyBar
+        currentClinic={currentClinic}
+        onSelectClinic={handleSelectClinic}
+        isClientMode={isClientMode}
+        setIsClientMode={setIsClientMode}
+      />
+
+      {/* Main Header / Navigation */}
+      <Navbar
+        clinic={currentClinic}
+        onOpenBooking={() => handleOpenBooking()}
+      />
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <Hero
+          clinic={currentClinic}
+          onOpenBooking={() => handleOpenBooking()}
+        />
+
+        {/* Services & Pricing Section */}
+        <ServicesSection
+          clinic={currentClinic}
+          onOpenBooking={handleOpenBooking}
+        />
+
+        {/* Doctor & Specialist Section */}
+        <DoctorSection
+          clinic={currentClinic}
+          onOpenBooking={() => handleOpenBooking()}
+        />
+
+        {/* Why Choose Us */}
+        <WhyChooseUs />
+
+        {/* Patient Reviews Section */}
+        <ReviewsSection clinic={currentClinic} />
+
+        {/* Clinic Location & Working Hours */}
+        <LocationSection clinic={currentClinic} />
+
+        {/* FAQs */}
+        <FaqSection />
+      </main>
+
+      {/* Footer */}
+      <Footer
+        clinic={currentClinic}
+        onOpenBooking={() => handleOpenBooking()}
+        isClientMode={isClientMode}
+      />
+
+      {/* Mobile Sticky CTA Bar */}
+      <FloatingCta
+        clinic={currentClinic}
+        onOpenBooking={() => handleOpenBooking()}
+      />
+
+      {/* Appointment Booking Modal */}
+      <AppointmentModal
+        isOpen={bookingModalOpen}
+        onClose={() => setBookingModalOpen(false)}
+        clinic={currentClinic}
+        initialService={selectedService}
+      />
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-white text-slate-600 font-medium">
+          লোড হচ্ছে...
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      }
+    >
+      <DentalApp />
+    </Suspense>
   );
 }
