@@ -28,8 +28,8 @@ export default function DoctorSection({
             <div className="relative inline-block mx-auto">
               <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-white border-2 border-teal-100 shadow-md p-2.5 mx-auto transition-transform duration-300 hover:scale-102">
                 <div className="w-full h-full bg-gradient-to-tr from-teal-50 to-sky-50 rounded-2xl flex flex-col items-center justify-center text-slate-800">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-teal-700 to-sky-600 text-white flex items-center justify-center text-4xl font-bold mb-2 shadow-sm">
-                    {clinic.doctor.name.charAt(3) || "ডা"}
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-teal-700 to-sky-600 text-white flex items-center justify-center text-3xl font-bold mb-2 shadow-sm">
+                    {clinic.doctor.name.replace(/^(সহকারী অধ্যাপক ডা\.|অধ্যাপক ডা\.|প্রভাষক ডা\.|ডা\.|চিফ ডেন্টাল সার্জন)\s*/, "").trim().slice(0, 2) || "ডেন্টাল"}
                   </div>
                   <span className="text-xs font-bold text-slate-800">
                     {clinic.doctor.name}

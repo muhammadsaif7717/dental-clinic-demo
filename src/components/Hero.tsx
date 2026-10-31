@@ -155,8 +155,8 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
               {/* Doctor Header */}
               <div className="flex items-start gap-4 pb-5 border-b border-slate-100">
                 <div className="relative">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-teal-700 to-sky-600 text-white flex items-center justify-center font-bold text-2xl shadow-sm shrink-0">
-                    {clinic.doctor.name.charAt(3) || "ডা"}
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-teal-700 to-sky-600 text-white flex items-center justify-center font-bold text-xl shadow-sm shrink-0">
+                    {clinic.doctor.name.replace(/^(সহকারী অধ্যাপক ডা\.|অধ্যাপক ডা\.|প্রভাষক ডা\.|ডা\.|চিফ ডেন্টাল সার্জন)\s*/, "").trim().slice(0, 2) || "ডেন্টাল"}
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center" title="চেম্বারে উপস্থিত">
                     <Activity className="w-2.5 h-2.5 text-white" />
