@@ -45,11 +45,11 @@ export default function Navbar({ clinic, onOpenBooking }: NavbarProps) {
       </div>
 
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between gap-3">
         
         {/* Brand Logo & Name */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-teal-800 to-sky-700 text-white flex items-center justify-center font-bold text-lg shadow-sm transition group-hover:scale-105">
+        <a href="#" className="flex items-center gap-2.5 sm:gap-3 group min-w-0">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-teal-800 to-sky-700 text-white flex items-center justify-center font-bold text-base sm:text-lg shadow-sm transition group-hover:scale-105 shrink-0">
             <svg
               className="w-5 h-5 text-teal-200"
               viewBox="0 0 24 24"
@@ -63,11 +63,11 @@ export default function Navbar({ clinic, onOpenBooking }: NavbarProps) {
               <path d="M12 6v6" />
             </svg>
           </div>
-          <div>
-            <div className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-teal-800 transition-colors">
+          <div className="min-w-0">
+            <div className="text-sm sm:text-base md:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-teal-800 transition-colors truncate max-w-[200px] xs:max-w-[260px] sm:max-w-sm md:max-w-md">
               {clinic.name}
             </div>
-            <p className="text-[11px] text-teal-700 font-medium">
+            <p className="text-[10px] sm:text-[11px] text-teal-700 font-medium truncate">
               {clinic.area}
             </p>
           </div>

@@ -19,14 +19,14 @@ export default function DoctorSection({
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-50/60 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-50/50 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="bg-gradient-to-br from-slate-50 via-teal-50/30 to-slate-50 rounded-3xl p-6 sm:p-10 border border-teal-100 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="bg-gradient-to-br from-slate-50 via-teal-50/30 to-slate-50 rounded-3xl p-5 sm:p-8 lg:p-10 border border-teal-100 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Avatar Card with Floating Experience Tag */}
           <div className="lg:col-span-5 text-center">
             <div className="relative inline-block mx-auto">
-              <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-3xl bg-white border-2 border-teal-200 shadow-xl p-2.5 mx-auto transition-transform duration-300 hover:scale-102">
+              <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 rounded-3xl bg-white border-2 border-teal-200 shadow-xl p-2 sm:p-2.5 mx-auto transition-transform duration-300 hover:scale-102">
                 <div className="w-full h-full rounded-2xl overflow-hidden relative shadow-inner bg-slate-100">
                   <img
                     src={clinic.doctor.image}
@@ -35,7 +35,7 @@ export default function DoctorSection({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                   <div className="absolute bottom-2.5 left-2 right-2 text-center">
-                    <span className="text-white text-xs font-bold drop-shadow-md">
+                    <span className="text-white text-[11px] sm:text-xs font-bold drop-shadow-md">
                       {clinic.doctor.specialty}
                     </span>
                   </div>
@@ -43,7 +43,7 @@ export default function DoctorSection({
               </div>
 
               {/* BMDC Verified Pill */}
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[11px] font-semibold px-4 py-1.5 rounded-full shadow-lg border border-teal-500/30 whitespace-nowrap flex items-center gap-1.5">
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] sm:text-[11px] font-semibold px-3.5 sm:px-4 py-1.5 rounded-full shadow-lg border border-teal-500/30 whitespace-nowrap flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
                 <span>{clinic.doctor.bmdc}</span>
               </div>

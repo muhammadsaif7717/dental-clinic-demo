@@ -14,11 +14,11 @@ export default function LocationSection({ clinic }: LocationSectionProps) {
 
   return (
     <section id="location" className="relative py-16 md:py-24 bg-white border-b border-teal-100/70">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6">
             <div>
               <span className="text-xs font-bold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 uppercase tracking-wide">
                 চেম্বারের ঠিকানা ও দিকনির্দেশনা
@@ -26,12 +26,12 @@ export default function LocationSection({ clinic }: LocationSectionProps) {
               <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2.5">
                 আমাদের ক্লিনিকে সরাসরি আসুন
               </h2>
-              <p className="text-slate-600 text-sm mt-1.5 leading-relaxed">
+              <p className="text-slate-600 text-xs sm:text-sm mt-1.5 leading-relaxed">
                 সহজ যোগাযোগ ও নিরিবিলি পারিবারিক পরিবেশে আপনার আগমন প্রত্যাশা করছি।
               </p>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-3 sm:space-y-3.5">
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 transition hover:border-teal-300">
                 <MapPin className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
                 <div>
@@ -63,12 +63,12 @@ export default function LocationSection({ clinic }: LocationSectionProps) {
               </div>
             </div>
 
-            <div className="pt-2 flex flex-wrap gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <a
                 href={gmapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-teal-900 text-white font-semibold text-xs sm:text-sm shadow-sm transition active:scale-95"
+                className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-teal-900 text-white font-semibold text-xs sm:text-sm shadow-sm transition active:scale-95 text-center"
               >
                 <Navigation className="w-4 h-4 text-teal-300" />
                 <span>গুগল ম্যাপে দিকনির্দেশনা দেখুন</span>
@@ -81,7 +81,7 @@ export default function LocationSection({ clinic }: LocationSectionProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-sm transition active:scale-95"
+                className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-sm transition active:scale-95 text-center"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>হোয়াটসঅ্যাপে দিকনির্দেশনা</span>
@@ -92,7 +92,7 @@ export default function LocationSection({ clinic }: LocationSectionProps) {
 
           {/* Right Simulated Interactive Map Card */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl overflow-hidden border border-teal-100 bg-gradient-to-br from-teal-50/50 to-sky-50/50 p-8 text-center relative shadow-inner min-h-[380px] flex flex-col items-center justify-center">
+            <div className="rounded-3xl overflow-hidden border border-teal-100 bg-gradient-to-br from-teal-50/50 to-sky-50/50 p-5 sm:p-8 text-center relative shadow-inner min-h-[300px] sm:min-h-[380px] flex flex-col items-center justify-center">
               
               {/* Subtle medical grid background */}
               <div className="absolute inset-0 medical-pattern opacity-60 pointer-events-none" />

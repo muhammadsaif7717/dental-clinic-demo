@@ -47,21 +47,21 @@ export default function WhyChooseUs({ clinic }: WhyChooseUsProps) {
       {/* Background medical pattern */}
       <div className="absolute inset-0 medical-pattern opacity-40 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <span className="text-xs font-semibold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 uppercase tracking-wide">
             আমাদের বিশেষ সুবিধা
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mt-2.5">
             রোগীর সুরক্ষা ও স্বাচ্ছন্দ্যই আমাদের প্রধান লক্ষ্য
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base mt-2">
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
             আধুনিক মেডিকেল যন্ত্রপাতি ও পরিচ্ছন্ন ক্লিনিক্যাল পরিবেশে আন্তর্জাতিক মানের সেবা।
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {points.map((pt, i) => {
             const Icon = pt.icon;
             return (
@@ -85,14 +85,14 @@ export default function WhyChooseUs({ clinic }: WhyChooseUsProps) {
 
         {/* Clinic Atmosphere & Sterilization Gallery */}
         {clinic?.gallery && clinic.gallery.length > 0 && (
-          <div className="mt-16 sm:mt-20 pt-12 border-t border-slate-200/80">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div className="mt-12 sm:mt-16 lg:mt-20 pt-10 sm:pt-12 border-t border-slate-200/80">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-4">
               <div>
                 <span className="text-xs font-semibold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 uppercase tracking-wide inline-flex items-center gap-1.5">
                   <Camera className="w-3.5 h-3.5 text-teal-700" />
                   ক্লিনিক্যাল চিত্রশালা
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mt-2">
                   পরিচ্ছন্ন পরিবেশ ও আধুনিক ডেন্টাল অপারোটরি
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -105,11 +105,11 @@ export default function WhyChooseUs({ clinic }: WhyChooseUsProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {clinic.gallery.map((item, idx) => (
                 <div
                   key={idx}
-                  className="group relative h-60 rounded-3xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  className="group relative h-52 sm:h-56 lg:h-60 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <img
                     src={item.url}

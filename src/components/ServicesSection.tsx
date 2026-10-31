@@ -18,10 +18,10 @@ export default function ServicesSection({
       {/* Subtle background medical grid */}
       <div className="absolute inset-0 medical-pattern opacity-40 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/80 mb-3 shadow-2xs">
             <Activity className="w-3.5 h-3.5 text-teal-600" />
             <span>চিকিৎসা সেবা ও প্যাকেজসমূহ</span>
@@ -29,13 +29,13 @@ export default function ServicesSection({
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             আমাদের বিশেষায়িত ডেন্টাল কেয়ার
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base mt-2">
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
             সর্বাধুনিক প্রযুক্তির মেশিনারিজ ও ব্যথাহীন পদ্ধতিতে প্রতিটি রোগীর প্রয়োজন অনুযায়ী সম্পূর্ণ কাস্টমাইজড চিকিৎসা।
           </p>
         </div>
 
         {/* Services Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
           {clinic.services.map((service, index) => (
             <div
               key={index}
@@ -116,27 +116,27 @@ export default function ServicesSection({
         </div>
 
         {/* Clean Consultation Strip */}
-        <div className="mt-12 bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-1 text-center md:text-left">
-            <h4 className="text-lg sm:text-xl font-bold flex items-center justify-center md:justify-start gap-2">
-              <Sparkles className="w-5 h-5 text-teal-400" />
-              নির্দিষ্ট কোনো দাঁতের সমস্যায় পরামর্শ চাচ্ছেন?
+        <div className="mt-10 sm:mt-12 bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-5 sm:p-7 md:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="space-y-1.5 text-center md:text-left">
+            <h4 className="text-base sm:text-lg md:text-xl font-bold flex items-center justify-center md:justify-start gap-2">
+              <Sparkles className="w-5 h-5 text-teal-400 shrink-0" />
+              <span>নির্দিষ্ট কোনো দাঁতের সমস্যায় পরামর্শ চাচ্ছেন?</span>
             </h4>
-            <p className="text-xs sm:text-sm text-slate-300">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
               ক্লিনিকে আসার আগে সরাসরি ফোনে বা হোয়াটসঅ্যাপে আমাদের সাথে কথা বলে প্রাথমিক পরামর্শ নিতে পারেন।
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0">
             <a
               href={`tel:${clinic.phone.replace(/[^0-9]/g, "")}`}
-              className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition shadow-xs"
+              className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition shadow-xs text-center justify-center flex items-center"
             >
               সরাসরি কল দিন
             </a>
             <button
               onClick={() => onOpenBooking()}
-              className="px-6 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition cursor-pointer"
+              className="px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition cursor-pointer text-center justify-center flex items-center active:scale-95"
             >
               অনলাইন সিরিয়াল
             </button>

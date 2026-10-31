@@ -31,9 +31,9 @@ export default function FaqSection() {
 
   return (
     <section className="relative py-16 md:py-24 bg-white border-b border-teal-100/70">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-14">
+        <div className="text-center mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200 mb-3 shadow-2xs">
             <HelpCircle className="w-3.5 h-3.5 text-teal-600" />
             <span>সচরাচর জিজ্ঞাসা (FAQ)</span>
@@ -41,12 +41,12 @@ export default function FaqSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             ডেন্টাল চিকিৎসা সংক্রান্ত সাধারণ প্রশ্ন ও উত্তর
           </h2>
-          <p className="text-slate-600 text-sm mt-1.5">
+          <p className="text-slate-600 text-xs sm:text-sm mt-1.5">
             দাঁতের স্বাস্থ্য ও ট্রিটমেন্ট নিয়ে আপনার মনে যেসব প্রশ্ন আসতে পারে।
           </p>
         </div>
 
-        <div className="space-y-3.5">
+        <div className="space-y-3 sm:space-y-3.5">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
@@ -58,9 +58,9 @@ export default function FaqSection() {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-semibold text-slate-900 text-sm sm:text-base hover:text-teal-800 transition cursor-pointer"
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-3 sm:gap-4 font-semibold text-slate-900 text-xs sm:text-sm md:text-base hover:text-teal-800 transition cursor-pointer"
                 >
-                  <span className="flex items-center gap-3">
+                  <span className="flex items-center gap-2.5 sm:gap-3">
                     <span className="w-2 h-2 rounded-full bg-teal-500 shrink-0" />
                     <span>{faq.q}</span>
                   </span>
@@ -72,8 +72,8 @@ export default function FaqSection() {
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-slate-600 text-xs sm:text-sm leading-relaxed border-t border-teal-100/60 animate-slide-up">
-                    <p className="pl-5 text-slate-600">{faq.a}</p>
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-1 text-slate-600 text-xs sm:text-sm leading-relaxed border-t border-teal-100/60 animate-slide-up">
+                    <p className="pl-4 sm:pl-5 text-slate-600">{faq.a}</p>
                   </div>
                 )}
               </div>

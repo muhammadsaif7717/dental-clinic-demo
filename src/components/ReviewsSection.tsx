@@ -14,9 +14,9 @@ export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
       {/* Background medical pattern */}
       <div className="absolute inset-0 medical-pattern opacity-30 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 text-xs font-semibold border border-amber-200 mb-3 shadow-2xs">
             <MessageSquare className="w-3.5 h-3.5 text-amber-600" />
             <span>সন্তুষ্ট রোগীদের অভিজ্ঞতা</span>
@@ -24,16 +24,16 @@ export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             আমাদের সেবা নিয়ে রোগীরা কী বলছেন
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base mt-2">
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
             গুগল ও সোশ্যাল মিডিয়ায় {clinic.name}-এর রোগীদের দেওয়া শতভাগ অকৃত্রিম ফিডব্যাক।
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
           {clinic.reviews.map((rev, index) => (
             <div
               key={index}
-              className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+              className="bg-white rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -43,7 +43,7 @@ export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
                     ))}
                   </div>
                   <span className="text-[11px] text-slate-400 font-medium">
-                    {rev.date}
+                    {rev.date || "ভেরিফাইড পেশেন্ট"}
                   </span>
                 </div>
 

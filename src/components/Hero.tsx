@@ -40,15 +40,15 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
         <Plus className="w-6 h-6" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
           
           {/* Left Text & Action Column */}
-          <div className="lg:col-span-7 space-y-6 animate-slide-up">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 animate-slide-up">
             
             {/* Area Pill & Emergency Indicator */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 text-slate-800 text-xs font-medium border border-teal-200/80 shadow-xs backdrop-blur-xs">
-              <span className="relative flex h-2 w-2">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white/90 text-slate-800 text-[11px] sm:text-xs font-medium border border-teal-200/80 shadow-xs backdrop-blur-xs flex-wrap">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500" />
               </span>
@@ -58,17 +58,17 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-slate-900 leading-[1.22] tracking-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[46px] font-bold text-slate-900 leading-[1.22] tracking-tight">
               {clinic.heroHeadline}
             </h1>
 
             {/* Sub-headline */}
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+            <p className="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-normal">
               {clinic.heroSubheadline}
             </p>
 
             {/* Value checklist */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-sm text-slate-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-1 text-xs sm:text-sm text-slate-700">
               <div className="flex items-center gap-2.5">
                 <div className="w-5 h-5 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-3.5 h-3.5" />
@@ -96,10 +96,10 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
             </div>
 
             {/* Primary Action Buttons */}
-            <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+            <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
                 onClick={onOpenBooking}
-                className="group relative flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-teal-700 to-sky-700 hover:from-teal-600 hover:to-sky-600 text-white font-semibold text-sm transition-all shadow-md shadow-teal-900/15 hover:shadow-lg hover:shadow-teal-900/20 active:scale-95 cursor-pointer"
+                className="group relative flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 rounded-xl bg-gradient-to-r from-teal-700 to-sky-700 hover:from-teal-600 hover:to-sky-600 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-teal-900/15 hover:shadow-lg hover:shadow-teal-900/20 active:scale-95 cursor-pointer"
               >
                 <Calendar className="w-4 h-4 text-teal-200 group-hover:scale-110 transition-transform" />
                 <span>অনলাইনে সিরিয়াল নিন</span>
@@ -111,7 +111,7 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition shadow-sm active:scale-95 hover:shadow-md"
+                className="flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition shadow-sm active:scale-95 hover:shadow-md"
               >
                 <MessageCircle className="w-4 h-4 text-white" />
                 <span>WhatsApp এ সিরিয়াল</span>
@@ -119,7 +119,7 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
 
               <a
                 href={`tel:${clinic.phone.replace(/[^0-9]/g, "")}`}
-                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium text-sm transition shadow-2xs"
+                className="flex items-center justify-center gap-2 px-4 sm:px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium text-xs sm:text-sm transition shadow-2xs"
               >
                 <Phone className="w-4 h-4 text-teal-600" />
                 <span>কল: {clinic.phone}</span>
@@ -127,7 +127,7 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
             </div>
 
             {/* Trust Indicators */}
-            <div className="pt-5 flex items-center gap-6 border-t border-slate-200/70 text-xs text-slate-600">
+            <div className="pt-4 sm:pt-5 flex flex-wrap items-center gap-4 sm:gap-6 border-t border-slate-200/70 text-xs text-slate-600">
               <div className="flex items-center gap-1.5">
                 <div className="flex text-amber-500">
                   {[...Array(5)].map((_, i) => (
