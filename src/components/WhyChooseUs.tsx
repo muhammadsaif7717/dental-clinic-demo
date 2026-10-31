@@ -1,8 +1,13 @@
 "use client";
 
-import { ShieldCheck, Smile, Cpu, Sparkles, Clock, CheckCircle2 } from "lucide-react";
+import { DentalClinic } from "@/data/clinics";
+import { ShieldCheck, Smile, Cpu, Sparkles, Clock, CheckCircle2, Camera } from "lucide-react";
 
-export default function WhyChooseUs() {
+interface WhyChooseUsProps {
+  clinic?: DentalClinic;
+}
+
+export default function WhyChooseUs({ clinic }: WhyChooseUsProps) {
   const points = [
     {
       icon: ShieldCheck,
@@ -77,6 +82,55 @@ export default function WhyChooseUs() {
             );
           })}
         </div>
+
+        {/* Clinic Atmosphere & Sterilization Gallery */}
+        {clinic?.gallery && clinic.gallery.length > 0 && (
+          <div className="mt-16 sm:mt-20 pt-12 border-t border-slate-200/80">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+              <div>
+                <span className="text-xs font-semibold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 uppercase tracking-wide inline-flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-teal-700" />
+                  ক্লিনিক্যাল চিত্রশালা
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2">
+                  পরিচ্ছন্ন পরিবেশ ও আধুনিক ডেন্টাল অপারোটরি
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                  সর্বোচ্চ স্বাস্থ্যবিধি মেনে রোগীদের জন্য সাজানো শান্ত ও জীবাণুমুক্ত চিকিৎসা কেন্দ্র।
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-bold text-teal-800 bg-white border border-teal-200 px-3 py-1.5 rounded-full shadow-2xs shrink-0 self-start sm:self-auto">
+                <ShieldCheck className="w-4 h-4 text-teal-600" />
+                <span>ক্লাস-বি অটোক্লেভ মান</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {clinic.gallery.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="group relative h-60 rounded-3xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                >
+                  <img
+                    src={item.url}
+                    alt={item.caption}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+                  
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <span className="inline-block text-[11px] font-bold text-teal-300 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-white/10 mb-1.5">
+                      ছবি 0{idx + 1}
+                    </span>
+                    <p className="text-xs font-semibold text-white leading-snug drop-shadow-sm">
+                      {item.caption}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       </div>
     </section>

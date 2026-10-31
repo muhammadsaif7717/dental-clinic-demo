@@ -90,8 +90,8 @@ function DentalApp() {
           onOpenBooking={() => handleOpenBooking()}
         />
 
-        {/* Why Choose Us */}
-        <WhyChooseUs />
+        {/* Why Choose Us & Clinical Atmosphere Gallery */}
+        <WhyChooseUs clinic={currentClinic} />
 
         {/* Patient Reviews Section */}
         <ReviewsSection clinic={currentClinic} />

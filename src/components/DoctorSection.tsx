@@ -26,19 +26,24 @@ export default function DoctorSection({
           {/* Left Avatar Card with Floating Experience Tag */}
           <div className="lg:col-span-5 text-center">
             <div className="relative inline-block mx-auto">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-white border-2 border-teal-100 shadow-md p-2.5 mx-auto transition-transform duration-300 hover:scale-102">
-                <div className="w-full h-full bg-gradient-to-tr from-teal-50 to-sky-50 rounded-2xl flex flex-col items-center justify-center text-slate-800">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-teal-700 to-sky-600 text-white flex items-center justify-center text-3xl font-bold mb-2 shadow-sm">
-                    {clinic.doctor.name.replace(/^(সহকারী অধ্যাপক ডা\.|অধ্যাপক ডা\.|প্রভাষক ডা\.|ডা\.|চিফ ডেন্টাল সার্জন)\s*/, "").trim().slice(0, 2) || "ডেন্টাল"}
+              <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-3xl bg-white border-2 border-teal-200 shadow-xl p-2.5 mx-auto transition-transform duration-300 hover:scale-102">
+                <div className="w-full h-full rounded-2xl overflow-hidden relative shadow-inner bg-slate-100">
+                  <img
+                    src={clinic.doctor.image}
+                    alt={clinic.doctor.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-2.5 left-2 right-2 text-center">
+                    <span className="text-white text-xs font-bold drop-shadow-md">
+                      {clinic.doctor.specialty}
+                    </span>
                   </div>
-                  <span className="text-xs font-bold text-slate-800">
-                    {clinic.doctor.name}
-                  </span>
                 </div>
               </div>
 
               {/* BMDC Verified Pill */}
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[11px] font-medium px-4 py-1.5 rounded-full shadow-md border border-slate-700 whitespace-nowrap flex items-center gap-1.5">
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[11px] font-semibold px-4 py-1.5 rounded-full shadow-lg border border-teal-500/30 whitespace-nowrap flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
                 <span>{clinic.doctor.bmdc}</span>
               </div>

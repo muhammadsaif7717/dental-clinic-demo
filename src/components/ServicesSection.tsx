@@ -39,33 +39,55 @@ export default function ServicesSection({
           {clinic.services.map((service, index) => (
             <div
               key={index}
-              className={`group relative rounded-3xl p-6 sm:p-7 border bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between ${
+              className={`group relative rounded-3xl overflow-hidden p-5 sm:p-6 border bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between ${
                 service.popular
                   ? "border-teal-300 shadow-md ring-1 ring-teal-200/70"
                   : "border-slate-200/90 shadow-2xs hover:border-teal-200"
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-bold text-sm border border-teal-100 group-hover:bg-teal-700 group-hover:text-white transition-colors duration-200">
-                    0{index + 1}
-                  </div>
-                  {service.popular && (
-                    <span className="text-[11px] font-semibold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 flex items-center gap-1 shadow-2xs">
-                      <Sparkles className="w-3 h-3 text-teal-600" />
-                      জনপ্রিয় সেবা
+                {/* Service Treatment Photo */}
+                <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-2xl mb-4 bg-slate-100 shadow-inner">
+                  <img
+                    src={service.image}
+                    alt={service.bengaliTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  
+                  {/* Service Number Badge */}
+                  <div className="absolute top-3 left-3">
+                    <span className="w-8 h-8 rounded-lg bg-slate-900/80 backdrop-blur-md text-teal-300 border border-white/20 flex items-center justify-center font-bold text-xs">
+                      0{index + 1}
                     </span>
+                  </div>
+
+                  {/* Popular Tag */}
+                  {service.popular && (
+                    <div className="absolute top-3 right-3">
+                      <span className="text-[10px] font-bold text-teal-950 bg-teal-300 px-2.5 py-1 rounded-full shadow-sm uppercase tracking-wide flex items-center gap-1 backdrop-blur-md">
+                        <Sparkles className="w-3 h-3 text-teal-900" />
+                        জনপ্রিয়
+                      </span>
+                    </div>
                   )}
+
+                  {/* Price Tag Overlay */}
+                  <div className="absolute bottom-2.5 right-3">
+                    <span className="text-xs font-bold text-white bg-slate-900/85 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-lg">
+                      {service.price}
+                    </span>
+                  </div>
                 </div>
 
                 <h3 className="text-lg font-bold text-slate-900 mb-0.5 group-hover:text-teal-800 transition-colors">
                   {service.bengaliTitle}
                 </h3>
-                <p className="text-xs text-teal-700 font-medium mb-3">
+                <p className="text-xs text-teal-700 font-medium mb-2.5">
                   {service.title}
                 </p>
 
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">
                   {service.description}
                 </p>
               </div>

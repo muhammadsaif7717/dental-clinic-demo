@@ -152,13 +152,54 @@ export default function Hero({ clinic, onOpenBooking }: HeroProps) {
             {/* Main Interactive Doctor Card */}
             <div className="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 border border-teal-100 shadow-xl shadow-teal-900/5 relative transition duration-300 hover:shadow-2xl hover:border-teal-200">
               
+              {/* Operatory / Clinic Photo Header with Live Badge */}
+              <div className="relative h-44 sm:h-52 w-full overflow-hidden rounded-2xl mb-5 group shadow-inner">
+                <img
+                  src={clinic.heroImage}
+                  alt={`${clinic.name} চেম্বার`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent" />
+                
+                {/* Sterilization Badge */}
+                <div className="absolute top-3 left-3">
+                  <span className="px-2.5 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-teal-300 font-mono text-[11px] font-bold border border-white/10 flex items-center gap-1.5 shadow-sm">
+                    <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                    <span>১০০% জীবাণুমুক্ত চেম্বার</span>
+                  </span>
+                </div>
+
+                {/* Live Chamber Status */}
+                <div className="absolute top-3 right-3">
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono font-bold flex items-center gap-1.5 backdrop-blur-md shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>চেম্বার প্রস্তুত</span>
+                  </span>
+                </div>
+
+                {/* Bottom clinic name overlay */}
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                  <span className="text-xs font-bold drop-shadow-md text-teal-100 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-teal-300" />
+                    {clinic.name}
+                  </span>
+                  <span className="text-[11px] text-slate-300 font-medium">
+                    {clinic.area}
+                  </span>
+                </div>
+              </div>
+
               {/* Doctor Header */}
               <div className="flex items-start gap-4 pb-5 border-b border-slate-100">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-teal-700 to-sky-600 text-white flex items-center justify-center font-bold text-xl shadow-sm shrink-0">
-                    {clinic.doctor.name.replace(/^(সহকারী অধ্যাপক ডা\.|অধ্যাপক ডা\.|প্রভাষক ডা\.|ডা\.|চিফ ডেন্টাল সার্জন)\s*/, "").trim().slice(0, 2) || "ডেন্টাল"}
+                <div className="relative shrink-0">
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-teal-100 shadow-md bg-slate-100">
+                    <img
+                      src={clinic.doctor.image}
+                      alt={clinic.doctor.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center" title="চেম্বারে উপস্থিত">
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-xs" title="চেম্বারে উপস্থিত">
                     <Activity className="w-2.5 h-2.5 text-white" />
                   </div>
                 </div>
