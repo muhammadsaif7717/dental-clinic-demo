@@ -1,7 +1,8 @@
 "use client";
 
 import { DentalClinic } from "@/data/clinics";
-import { ArrowRight, Clock, Sparkles, Activity } from "lucide-react";
+import { ArrowRight, Clock, Activity, Check } from "lucide-react";
+import { useState } from "react";
 
 interface ServicesSectionProps {
   clinic: DentalClinic;
@@ -12,135 +13,141 @@ export default function ServicesSection({
   clinic,
   onOpenBooking,
 }: ServicesSectionProps) {
+  const [activeCategory, setActiveCategory] = useState<string>("সকল সেবা");
+
+  const categories = [
+    "সকল সেবা",
+    "রুট ক্যানাল ও ফিলিং",
+    "দাঁত সোজা ও ব্রেসেস",
+    "ইমপ্ল্যান্ট ও কসমেটিক",
+  ];
+
+  const filteredServices = clinic.services.filter((s) => {
+    if (activeCategory === "সকল সেবা") return true;
+    if (activeCategory === "রুট ক্যানাল ও ফিলিং") {
+      return s.title.toLowerCase().includes("root") || s.title.toLowerCase().includes("filling") || s.bengaliTitle.includes("রুট") || s.bengaliTitle.includes("ফিলিং");
+    }
+    if (activeCategory === "দাঁত সোজা ও ব্রেসেস") {
+      return s.title.toLowerCase().includes("braces") || s.bengaliTitle.includes("ব্রেসেস") || s.bengaliTitle.includes("আঁকাবাঁকা");
+    }
+    if (activeCategory === "ইমপ্ল্যান্ট ও কসমেটিক") {
+      return s.title.toLowerCase().includes("implant") || s.title.toLowerCase().includes("whitening") || s.bengaliTitle.includes("ইমপ্ল্যান্ট") || s.bengaliTitle.includes("হোয়াইটেনিং") || s.bengaliTitle.includes("স্কেলিং");
+    }
+    return true;
+  });
+
   return (
-    <section id="services" className="relative py-16 md:py-24 bg-slate-50/70 border-b border-slate-200/70">
+    <section id="services" className="relative py-14 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
       
-      {/* Subtle background medical grid */}
+      {/* Background medical grid */}
       <div className="absolute inset-0 medical-pattern opacity-40 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/80 mb-3 shadow-2xs">
-            <Activity className="w-3.5 h-3.5 text-teal-600" />
-            <span>চিকিৎসা সেবা ও প্যাকেজসমূহ</span>
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200 mb-3 shadow-2xs">
+            <Activity className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+            <span>বিশেষায়িত ডেন্টাল চিকিৎসা ও প্যাকেজ</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-            আমাদের বিশেষায়িত ডেন্টাল কেয়ার
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            আন্তর্জাতিক মানের ব্যথাহীন ও আধুনিক সেবা
           </h2>
-          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
-            সর্বাধুনিক প্রযুক্তির মেশিনারিজ ও ব্যথাহীন পদ্ধতিতে প্রতিটি রোগীর প্রয়োজন অনুযায়ী সম্পূর্ণ কাস্টমাইজড চিকিৎসা।
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 leading-relaxed">
+            সর্বাধুনিক প্রযুক্তির মেশিনারিজ ও জীবাণুমুক্ত পরিবেশে প্রতিটি রোগীর সমস্যা অনুযায়ী স্থায়ী চিকিৎসা।
           </p>
+
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 active:scale-[0.98] min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 cursor-pointer ${
+                  activeCategory === cat
+                    ? "bg-teal-600 text-white shadow-xs"
+                    : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Services Cards */}
+        {/* Services Grid (Flat clean cards - No nested cards) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
-          {clinic.services.map((service, index) => (
+          {filteredServices.map((service, index) => (
             <div
               key={index}
-              className={`group relative rounded-3xl overflow-hidden p-5 sm:p-6 border bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between ${
+              className={`rounded-2xl p-5 sm:p-6 bg-white border transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between ${
                 service.popular
-                  ? "border-teal-300 shadow-md ring-1 ring-teal-200/70"
-                  : "border-slate-200/90 shadow-2xs hover:border-teal-200"
+                  ? "border-teal-300 ring-1 ring-teal-200/80 shadow-2xs"
+                  : "border-slate-200/90 shadow-2xs hover:border-teal-300"
               }`}
             >
               <div>
                 {/* Service Treatment Photo */}
-                <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-2xl mb-4 bg-slate-100 shadow-inner">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl mb-4 bg-slate-100">
                   <img
                     src={service.image}
                     alt={service.bengaliTitle}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-103"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  
-                  {/* Service Number Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="w-8 h-8 rounded-lg bg-slate-900/80 backdrop-blur-md text-teal-300 border border-white/20 flex items-center justify-center font-bold text-xs">
-                      0{index + 1}
-                    </span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent pointer-events-none" />
 
                   {/* Popular Tag */}
                   {service.popular && (
-                    <div className="absolute top-3 right-3">
-                      <span className="text-[10px] font-bold text-teal-950 bg-teal-300 px-2.5 py-1 rounded-full shadow-sm uppercase tracking-wide flex items-center gap-1 backdrop-blur-md">
-                        <Sparkles className="w-3 h-3 text-teal-900" />
+                    <div className="absolute top-2.5 right-2.5">
+                      <span className="text-[10px] font-bold text-teal-950 bg-teal-300 px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wide flex items-center gap-1">
+                        <Check className="w-3 h-3 text-teal-950 stroke-[3]" />
                         জনপ্রিয়
                       </span>
                     </div>
                   )}
 
                   {/* Price Tag Overlay */}
-                  <div className="absolute bottom-2.5 right-3">
-                    <span className="text-xs font-bold text-white bg-slate-900/85 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-lg">
+                  <div className="absolute bottom-2.5 right-2.5">
+                    <span className="text-xs font-bold text-white bg-slate-900/90 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-md">
                       {service.price}
                     </span>
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-0.5 group-hover:text-teal-800 transition-colors">
+                <h3 className="text-lg font-bold text-slate-900 mb-1 hover:text-teal-800 transition-colors">
                   {service.bengaliTitle}
                 </h3>
-                <p className="text-xs text-teal-700 font-medium mb-2.5">
+                <p className="text-xs text-teal-700 font-semibold mb-2.5">
                   {service.title}
                 </p>
 
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
                   {service.description}
                 </p>
               </div>
 
               <div>
-                <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 mb-4">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 mb-4">
                   <span className="flex items-center gap-1.5 font-medium">
-                    <Clock className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{service.duration}</span>
+                    <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>সময়: {service.duration}</span>
                   </span>
-                  <span className="font-bold text-slate-900 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200 text-xs sm:text-sm">
+                  <span className="font-bold text-teal-800">
                     {service.price}
                   </span>
                 </div>
 
                 <button
                   onClick={() => onOpenBooking(service.bengaliTitle)}
-                  className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-teal-700 hover:text-white text-slate-800 font-semibold text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs group-hover:bg-slate-900 group-hover:text-white"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-teal-700 active:scale-[0.98] text-white font-semibold text-xs sm:text-sm transition-all shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 min-h-[44px] cursor-pointer"
                 >
-                  <span>সিরিয়াল নিন</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <span>সিরিয়াল বুক করুন</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-teal-200" />
                 </button>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Clean Consultation Strip */}
-        <div className="mt-10 sm:mt-12 bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-5 sm:p-7 md:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-1.5 text-center md:text-left">
-            <h4 className="text-base sm:text-lg md:text-xl font-bold flex items-center justify-center md:justify-start gap-2">
-              <Sparkles className="w-5 h-5 text-teal-400 shrink-0" />
-              <span>নির্দিষ্ট কোনো দাঁতের সমস্যায় পরামর্শ চাচ্ছেন?</span>
-            </h4>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              ক্লিনিকে আসার আগে সরাসরি ফোনে বা হোয়াটসঅ্যাপে আমাদের সাথে কথা বলে প্রাথমিক পরামর্শ নিতে পারেন।
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0">
-            <a
-              href={`tel:${clinic.phone.replace(/[^0-9]/g, "")}`}
-              className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition shadow-xs text-center justify-center flex items-center"
-            >
-              সরাসরি কল দিন
-            </a>
-            <button
-              onClick={() => onOpenBooking()}
-              className="px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition cursor-pointer text-center justify-center flex items-center active:scale-95"
-            >
-              অনলাইন সিরিয়াল
-            </button>
-          </div>
         </div>
 
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { DentalClinic } from "@/data/clinics";
-import { Star, Quote, CheckCircle2, MessageSquare } from "lucide-react";
+import { Star, CheckCircle2, MessageSquare } from "lucide-react";
 
 interface ReviewsSectionProps {
   clinic: DentalClinic;
@@ -9,7 +9,7 @@ interface ReviewsSectionProps {
 
 export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
   return (
-    <section id="reviews" className="relative py-16 md:py-24 bg-slate-50/70 border-b border-slate-200/70">
+    <section id="reviews" className="relative py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
       
       {/* Background medical pattern */}
       <div className="absolute inset-0 medical-pattern opacity-30 pointer-events-none" />
@@ -21,11 +21,11 @@ export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
             <MessageSquare className="w-3.5 h-3.5 text-amber-600" />
             <span>সন্তুষ্ট রোগীদের অভিজ্ঞতা</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-            আমাদের সেবা নিয়ে রোগীরা কী বলছেন
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            আমাদের চিকিৎসা নিয়ে রোগীরা কী বলছেন
           </h2>
-          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
-            গুগল ও সোশ্যাল মিডিয়ায় {clinic.name}-এর রোগীদের দেওয়া শতভাগ অকৃত্রিম ফিডব্যাক।
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 leading-relaxed">
+            গুগল ও প্র্যাকটিস ম্যানেজমেন্ট সিস্টেমে {clinic.name}-এর রোগীদের দেওয়া সরাসরি রিভিউ।
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
           {clinic.reviews.map((rev, index) => (
             <div
               key={index}
-              className="bg-white rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+              className="bg-slate-50/70 rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -47,18 +47,16 @@ export default function ReviewsSection({ clinic }: ReviewsSectionProps) {
                   </span>
                 </div>
 
-                <Quote className="w-7 h-7 text-teal-100 mb-2" />
-
-                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed italic mb-6">
+                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
                   &ldquo;{rev.comment}&rdquo;
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
                     <span>{rev.name}</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 inline" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 inline shrink-0" />
                   </h4>
                   <p className="text-[11px] text-slate-500">{rev.area}</p>
                 </div>
