@@ -4,7 +4,6 @@ import { DentalClinic } from "@/data/clinics";
 import {
   Phone,
   Clock,
-  MapPin,
   Calendar,
   Menu,
   X,
@@ -54,27 +53,57 @@ export default function Navbar({ clinic, onOpenBooking }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-[#d8dde1]/90"
-          : "bg-white py-4 border-b border-[#d8dde1]/60"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center shrink-0">
-          <div className="flex items-center">
-            <Image
-              src="/dentox/images/logo.svg"
-              alt="Dentique Dental Clinic"
-              width={175}
-              height={48}
-              priority
-              className="h-10 w-auto object-contain"
-            />
+    <header className="sticky top-0 z-50 w-full transition-all duration-300">
+      {/* Top Clinical Announcement Sub-Navbar (Desktop & Large Screens Only) */}
+      <div
+        className={`bg-[#102223] text-[#dee8de]/85 text-xs px-4 hidden lg:block border-b border-[#2d5254]/60 transition-all duration-300 ${
+          isScrolled
+            ? "max-h-0 py-0 opacity-0 overflow-hidden pointer-events-none"
+            : "max-h-12 py-2.5 opacity-100"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Left: Schedule / Operating Hours Only */}
+          <div className="flex items-center gap-2 text-[#dee8de]/90">
+            <Clock className="w-3.5 h-3.5 text-[#33a9b1] shrink-0" />
+            <span>{clinic.hours || "Saturday - Thursday: 05:00 PM - 09:30 PM"}</span>
           </div>
-        </Link>
+
+          {/* Right: Direct Helpline Number Only */}
+          <div className="flex items-center">
+            <a
+              href={`tel:${clinic.phone.replace(/[^0-9+]/g, "")}`}
+              className="flex items-center gap-1.5 text-white hover:text-[#33a9b1] font-semibold transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#33a9b1] shrink-0" />
+              <span>Helpline: {clinic.phone || "(208) 555-0112"}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navbar Container */}
+      <div
+        className={`w-full transition-all duration-300 ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-[#d8dde1]/90"
+            : "bg-white py-4 border-b border-[#d8dde1]/60"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center shrink-0">
+            <div className="flex items-center">
+              <Image
+                src="/dentox/images/logo.svg"
+                alt="Dentique Dental Clinic"
+                width={160}
+                height={44}
+                priority
+                className="h-8 sm:h-10 w-auto object-contain"
+              />
+            </div>
+          </Link>
 
           {/* Desktop Navigation - 100% Single Line, Vertically Centered */}
           <nav
@@ -178,7 +207,7 @@ export default function Navbar({ clinic, onOpenBooking }: NavbarProps) {
           </nav>
 
           {/* Right Action Widgets */}
-          <div className="flex items-center gap-3 sm:gap-6 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-4 lg:gap-6 shrink-0">
             {/* Emergency Hotline Call Pill */}
             <a
               href={`tel:${clinic.phone.replace(/[^0-9+]/g, "")}`}
@@ -195,26 +224,36 @@ export default function Navbar({ clinic, onOpenBooking }: NavbarProps) {
               </div>
             </a>
 
-            {/* Make Appointment Pill Button */}
+            {/* Make Appointment Pill Button (hidden on small mobile <sm to prevent overflowing 360px screens) */}
             <button
               onClick={onOpenBooking}
-              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#33a9b1] hover:bg-[#288c93] active:scale-[0.98] text-white font-semibold text-xs sm:text-sm shadow-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#33a9b1] whitespace-nowrap"
+              className="hidden sm:inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#33a9b1] hover:bg-[#288c93] active:scale-[0.98] text-white font-semibold text-xs sm:text-sm shadow-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#33a9b1] whitespace-nowrap"
             >
               <Calendar className="w-4 h-4" />
               <span>Make Appointment</span>
               <ArrowRight className="w-3.5 h-3.5 hidden sm:inline" />
             </button>
 
+            {/* Quick Emergency Call Icon on small mobile (<sm) */}
+            <a
+              href={`tel:${clinic.phone.replace(/[^0-9+]/g, "")}`}
+              className="sm:hidden p-2 rounded-xl text-[#33a9b1] hover:bg-[#e6f7f8] active:scale-95 transition-all"
+              aria-label="Call Emergency Hotline"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
+
             {/* Mobile / Tablet Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-xl text-[#050c14] hover:bg-[#f5f7fa] transition-colors focus-visible:ring-2 focus-visible:ring-[#33a9b1]"
+              className="lg:hidden p-2 rounded-xl text-[#050c14] hover:bg-[#f5f7fa] active:scale-95 transition-all focus-visible:ring-2 focus-visible:ring-[#33a9b1]"
               aria-label="Open Navigation Menu"
             >
               <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
+      </div>
 
       {/* 3. Mobile Offcanvas Slide Drawer */}
       {mobileMenuOpen && (

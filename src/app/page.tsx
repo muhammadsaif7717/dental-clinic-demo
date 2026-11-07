@@ -50,14 +50,14 @@ function DentiqueDentalClinicApp() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans selection:bg-[#33a9b1] selection:text-white text-[#47697b]">
+    <div className="min-h-screen bg-white flex flex-col font-sans selection:bg-[#33a9b1] selection:text-white text-[#47697b] w-full max-w-full">
       {/* 1. Header (Dentox Topbar + Navigation + Emergency Call + Make Appointment CTA) */}
       <Navbar
         clinic={currentClinic}
         onOpenBooking={() => handleOpenBooking()}
       />
 
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-hidden w-full max-w-full">
         {/* 2. Hero Section with Slideshow & Modern Dental Care Headline */}
         <Hero
           clinic={currentClinic}

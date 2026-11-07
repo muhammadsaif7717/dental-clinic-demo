@@ -15,7 +15,7 @@ const BRAND_LOGOS = [
 
 export default function BrandMarquee() {
   return (
-    <section className="py-12 bg-[#dee8de]/40 border-y border-[#d8dde1]/80 overflow-hidden">
+    <section className="py-12 bg-[#dee8de]/40 border-y border-[#d8dde1]/80 overflow-hidden w-full max-w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-6 text-center">
         <span className="text-xs font-bold tracking-widest uppercase text-[#47697b]/80">
           Trusted by Premier Healthcare & Dental Technology Partners Worldwide

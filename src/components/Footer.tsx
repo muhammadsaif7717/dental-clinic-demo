@@ -27,7 +27,7 @@ export default function Footer({ clinic, onOpenBooking, isClientMode }: FooterPr
   };
 
   return (
-    <footer className="bg-[#1f3d3f] text-white pt-16 sm:pt-20 pb-12 relative overflow-hidden">
+    <footer className="bg-[#1f3d3f] text-white pt-16 sm:pt-20 pb-28 md:pb-12 relative overflow-hidden">
       
       {/* Footer Top Contact Highlight Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14 sm:mb-16">

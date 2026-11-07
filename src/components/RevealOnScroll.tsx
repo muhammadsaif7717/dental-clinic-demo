@@ -46,17 +46,17 @@ export default function RevealOnScroll({
     if (isVisible) return "translate-x-0 translate-y-0 opacity-100 scale-100";
     switch (direction) {
       case "up":
-        return "translate-y-10 opacity-0";
+        return "translate-y-8 opacity-0";
       case "down":
-        return "-translate-y-10 opacity-0";
+        return "-translate-y-8 opacity-0";
       case "left":
-        return "translate-x-10 opacity-0";
+        return "translate-y-6 sm:translate-y-0 sm:translate-x-8 opacity-0";
       case "right":
-        return "-translate-x-10 opacity-0";
+        return "translate-y-6 sm:translate-y-0 sm:-translate-x-8 opacity-0";
       case "none":
         return "opacity-0 scale-95";
       default:
-        return "translate-y-10 opacity-0";
+        return "translate-y-8 opacity-0";
     }
   };
 
