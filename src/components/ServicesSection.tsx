@@ -1,154 +1,168 @@
 "use client";
 
 import { DentalClinic } from "@/data/clinics";
-import { ArrowRight, Clock, Activity, Check } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface ServicesSectionProps {
   clinic: DentalClinic;
   onOpenBooking: (serviceName?: string) => void;
 }
 
-export default function ServicesSection({
-  clinic,
-  onOpenBooking,
-}: ServicesSectionProps) {
-  const [activeCategory, setActiveCategory] = useState<string>("সকল সেবা");
+const DENTOX_SERVICES = [
+  {
+    title: "Cosmetic Dentistry",
+    bengaliTitle: "কসমেটিক ডেন্টিস্ট্রি ও স্মাইল ডিজাইন",
+    description: "Custom porcelain veneers, composite bonding, and gum contouring for a radiant smile transformation.",
+    image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80",
+    price: "From $150 / ৳৫,০০০",
+    tag: "Popular",
+  },
+  {
+    title: "Pediatric Dentistry",
+    bengaliTitle: "পেডিয়াট্রিক ডেন্টিস্ট্রি (শিশু ডেন্টাল কেয়ার)",
+    description: "Gentle, stress-free dental care for children, cavity prevention, sealants, and early orthodontic monitoring.",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+    price: "From $80 / ৳২,৫০০",
+    tag: "Gentle Care",
+  },
+  {
+    title: "General Dentistry",
+    bengaliTitle: "জেনারেল ডেন্টিস্ট্রি ও রুটিন চেকআপ",
+    description: "Comprehensive dental cleanings, digital checkups, composite fillings, and proactive oral wellness.",
+    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
+    price: "From $50 / ৳১,৫০০",
+    tag: "Essential",
+  },
+  {
+    title: "Dental Implants & Surgery",
+    bengaliTitle: "ডেন্টাল ইমপ্ল্যান্ট ও ওরাল সার্জারি",
+    description: "Permanent titanium and zirconia tooth replacements, bone grafting, and computerized implant surgery.",
+    image: "https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=800&q=80",
+    price: "From $450 / ৳২৫,০০০",
+    tag: "Permanent",
+  },
+  {
+    title: "Orthodontics & Clear Aligners",
+    bengaliTitle: "অর্থোডন্টিক ব্রেসেস ও ক্লিয়ার এলাইনার",
+    description: "Invisalign, clear aligners, and traditional ceramic braces to correct misaligned teeth and bite issues.",
+    image: "https://images.unsplash.com/photo-1588776813677-77aaf5595b83?auto=format&fit=crop&w=800&q=80",
+    price: "From $350 / ৳২০,০০০",
+    tag: "Straight Teeth",
+  },
+  {
+    title: "Teeth Whitening & Laser Care",
+    bengaliTitle: "টিথ হোয়াইটেনিং ও লেজার ডেন্টিস্ট্রি",
+    description: "Professional in-chair laser whitening lightening up to 8 shades in just 45 minutes safely.",
+    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80",
+    price: "From $120 / ৳৪,০০০",
+    tag: "Instant Results",
+  },
+];
 
-  const categories = [
-    "সকল সেবা",
-    "রুট ক্যানাল ও ফিলিং",
-    "দাঁত সোজা ও ব্রেসেস",
-    "ইমপ্ল্যান্ট ও কসমেটিক",
-  ];
-
-  const filteredServices = clinic.services.filter((s) => {
-    if (activeCategory === "সকল সেবা") return true;
-    if (activeCategory === "রুট ক্যানাল ও ফিলিং") {
-      return s.title.toLowerCase().includes("root") || s.title.toLowerCase().includes("filling") || s.bengaliTitle.includes("রুট") || s.bengaliTitle.includes("ফিলিং");
-    }
-    if (activeCategory === "দাঁত সোজা ও ব্রেসেস") {
-      return s.title.toLowerCase().includes("braces") || s.bengaliTitle.includes("ব্রেসেস") || s.bengaliTitle.includes("আঁকাবাঁকা");
-    }
-    if (activeCategory === "ইমপ্ল্যান্ট ও কসমেটিক") {
-      return s.title.toLowerCase().includes("implant") || s.title.toLowerCase().includes("whitening") || s.bengaliTitle.includes("ইমপ্ল্যান্ট") || s.bengaliTitle.includes("হোয়াইটেনিং") || s.bengaliTitle.includes("স্কেলিং");
-    }
-    return true;
-  });
-
+export default function ServicesSection({ clinic, onOpenBooking }: ServicesSectionProps) {
   return (
-    <section id="services" className="relative py-14 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
-      
-      {/* Background medical grid */}
-      <div className="absolute inset-0 medical-pattern opacity-40 pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 sm:py-28 bg-[#f5f7fa] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200 mb-3 shadow-2xs">
-            <Activity className="w-3.5 h-3.5 text-teal-600 shrink-0" />
-            <span>বিশেষায়িত ডেন্টাল চিকিৎসা ও প্যাকেজ</span>
+        {/* Section Header with Reveal */}
+        <RevealOnScroll direction="up">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#33a9b1]">
+                <span className="w-6 h-0.5 bg-[#33a9b1]"></span>
+                Our Specialized Services
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#050c14] tracking-tight">
+                Best Dental Service for you
+              </h2>
+            </div>
+            <p className="text-[#47697b] max-w-md text-sm sm:text-base leading-relaxed">
+              Routine checkups, cleanings, and advanced preventive treatments to restore and maintain your lifelong oral health.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-            আন্তর্জাতিক মানের ব্যথাহীন ও আধুনিক সেবা
-          </h2>
-          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 leading-relaxed">
-            সর্বাধুনিক প্রযুক্তির মেশিনারিজ ও জীবাণুমুক্ত পরিবেশে প্রতিটি রোগীর সমস্যা অনুযায়ী স্থায়ী চিকিৎসা।
-          </p>
+        </RevealOnScroll>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 active:scale-[0.98] min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 cursor-pointer ${
-                  activeCategory === cat
-                    ? "bg-teal-600 text-white shadow-xs"
-                    : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Services Grid (Flat clean cards - No nested cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
-          {filteredServices.map((service, index) => (
-            <div
-              key={index}
-              className={`rounded-2xl p-5 sm:p-6 bg-white border transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between ${
-                service.popular
-                  ? "border-teal-300 ring-1 ring-teal-200/80 shadow-2xs"
-                  : "border-slate-200/90 shadow-2xs hover:border-teal-300"
-              }`}
+        {/* Services Cards Grid with Staggered Scroll Reveal */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {DENTOX_SERVICES.map((service, idx) => (
+            <RevealOnScroll
+              key={idx}
+              direction="up"
+              delay={idx * 100}
+              className="h-full"
             >
-              <div>
-                {/* Service Treatment Photo */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl mb-4 bg-slate-100">
-                  <img
+              <div className="group bg-white rounded-3xl overflow-hidden border border-[#d8dde1] hover:border-[#33a9b1] hover:shadow-2xl transition-all duration-300 flex flex-col h-full card-hover-lift">
+                {/* Image Container */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                  <Image
                     src={service.image}
-                    alt={service.bengaliTitle}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-103"
-                    loading="lazy"
+                    alt={service.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Popular Tag */}
-                  {service.popular && (
-                    <div className="absolute top-2.5 right-2.5">
-                      <span className="text-[10px] font-bold text-teal-950 bg-teal-300 px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wide flex items-center gap-1">
-                        <Check className="w-3 h-3 text-teal-950 stroke-[3]" />
-                        জনপ্রিয়
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Price Tag Overlay */}
-                  <div className="absolute bottom-2.5 right-2.5">
-                    <span className="text-xs font-bold text-white bg-slate-900/90 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-md">
-                      {service.price}
-                    </span>
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold text-[#050c14] border border-white/60 shadow-xs">
+                    {service.tag}
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-1 hover:text-teal-800 transition-colors">
-                  {service.bengaliTitle}
-                </h3>
-                <p className="text-xs text-teal-700 font-semibold mb-2.5">
-                  {service.title}
-                </p>
+                {/* Content */}
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <h3 className="text-xl font-bold text-[#050c14] group-hover:text-[#33a9b1] transition-colors">
+                        {service.title}
+                      </h3>
+                      <span className="text-xs font-bold text-[#33a9b1] bg-[#33a9b1]/10 px-2.5 py-1 rounded-full shrink-0">
+                        {service.price}
+                      </span>
+                    </div>
+                    <p className="text-xs font-medium text-[#33a9b1] mb-2">{service.bengaliTitle}</p>
+                    <p className="text-sm text-[#47697b] leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
 
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
-                  {service.description}
-                </p>
-              </div>
+                  {/* Footer action button */}
+                  <div className="pt-4 border-t border-[#d8dde1]/60 flex items-center justify-between">
+                    <span className="text-xs text-[#47697b] flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-[#33a9b1]" />
+                      <span>30 - 60 Mins</span>
+                    </span>
 
-              <div>
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 mb-4">
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                    <span>সময়: {service.duration}</span>
-                  </span>
-                  <span className="font-bold text-teal-800">
-                    {service.price}
-                  </span>
+                    <button
+                      onClick={() => onOpenBooking(service.title)}
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#050c14] group-hover:text-[#33a9b1] transition-colors"
+                    >
+                      <span>Book Service</span>
+                      <div className="w-7 h-7 rounded-full bg-[#f5f7fa] group-hover:bg-[#33a9b1] group-hover:text-white flex items-center justify-center transition-all">
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </div>
+                    </button>
+                  </div>
                 </div>
-
-                <button
-                  onClick={() => onOpenBooking(service.bengaliTitle)}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-teal-700 active:scale-[0.98] text-white font-semibold text-xs sm:text-sm transition-all shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 min-h-[44px] cursor-pointer"
-                >
-                  <span>সিরিয়াল বুক করুন</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-teal-200" />
-                </button>
               </div>
-            </div>
+            </RevealOnScroll>
           ))}
         </div>
+
+        {/* Bottom Banner */}
+        <RevealOnScroll direction="up" delay={200}>
+          <div className="mt-14 text-center">
+            <p className="text-sm text-[#47697b]">
+              Looking for a customized treatment plan or emergency dental relief?{" "}
+              <button
+                onClick={() => onOpenBooking()}
+                className="text-[#33a9b1] font-bold hover:underline ml-1"
+              >
+                Consult with our specialists today →
+              </button>
+            </p>
+          </div>
+        </RevealOnScroll>
 
       </div>
     </section>

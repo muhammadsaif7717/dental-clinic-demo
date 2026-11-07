@@ -1,131 +1,216 @@
 "use client";
 
 import { DentalClinic } from "@/data/clinics";
-import { GraduationCap, Calendar, ShieldCheck, HeartHandshake, Award, Phone } from "lucide-react";
+import Image from "next/image";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface DoctorSectionProps {
   clinic: DentalClinic;
   onOpenBooking: () => void;
 }
 
-export default function DoctorSection({
-  clinic,
-  onOpenBooking,
-}: DoctorSectionProps) {
-  return (
-    <section id="doctor" className="relative py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80 overflow-hidden">
-      
-      {/* Background accents */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-teal-50/50 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-sky-50/40 rounded-full blur-3xl pointer-events-none" />
+export interface DoctorMember {
+  name: string;
+  role: string;
+  experience: string;
+  image: string;
+}
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 lg:p-12 border border-slate-200/90 shadow-2xs grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Left Avatar Column */}
-          <div className="lg:col-span-5 text-center">
-            <div className="relative inline-block mx-auto">
-              <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 rounded-2xl bg-white border border-slate-200 shadow-sm p-2 mx-auto">
-                <div className="w-full h-full rounded-xl overflow-hidden relative bg-slate-100">
-                  <img
-                    src={clinic.doctor.image}
-                    alt={clinic.doctor.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2 right-2 text-center">
-                    <span className="text-white text-xs font-bold drop-shadow-xs">
-                      {clinic.doctor.specialty}
+const DENTIQUE_DOCTORS: DoctorMember[] = [
+  {
+    name: "Dr. Michael Thompson, DMD",
+    role: "Chief Implantologist",
+    experience: "15 years",
+    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Dr. Sarah Kim, DDS, MS",
+    role: "Orthodontist Specialist",
+    experience: "11 years",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Dr. Amanda Clark, DDS",
+    role: "Cosmetic Specialist",
+    experience: "8 years",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Lena Torres, CDA",
+    role: "Certified Dental Assistant",
+    experience: "5 years",
+    image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Emily Roberts, RDH",
+    role: "Registered Dental Hygienist",
+    experience: "7 years",
+    image: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Dr. Andi Doffren, DMD",
+    role: "Dental Surgeon & Periodontist",
+    experience: "10 years",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80",
+  },
+];
+
+export default function DoctorSection({ clinic, onOpenBooking }: DoctorSectionProps) {
+  return (
+    <section id="team" className="py-20 sm:py-28 bg-[#f8fbfb] relative overflow-hidden">
+      {/* Subtle Background Dental Ambient Watermarks matching reference image */}
+      <div className="absolute inset-0 pointer-events-none select-none opacity-40">
+        <div className="absolute top-12 left-8 text-[#33a9b1]/20">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" />
+          </svg>
+        </div>
+        <div className="absolute top-1/4 right-10 text-[#33a9b1]/20">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" />
+          </svg>
+        </div>
+        <div className="absolute bottom-16 left-1/3 text-[#33a9b1]/15">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" />
+          </svg>
+        </div>
+        <div className="absolute top-2/3 right-1/4 text-[#33a9b1]/20">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" />
+          </svg>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <RevealOnScroll direction="up">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#33a9b1]">
+                <span className="w-6 h-0.5 bg-[#33a9b1]"></span>
+                Our Dentists
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#050c14] tracking-tight">
+                Our Professional Team
+              </h2>
+            </div>
+            <p className="text-[#47697b] max-w-md text-sm sm:text-base leading-relaxed">
+              Dedicated specialists with world-class medical training and a gentle, compassionate bedside manner.
+            </p>
+          </div>
+        </RevealOnScroll>
+
+        {/* 6 Doctors Grid (3 Columns on Desktop, 2 on Tablet, 1 on Mobile) matching Reference Image */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {DENTIQUE_DOCTORS.map((doc, idx) => (
+            <RevealOnScroll
+              key={idx}
+              direction="up"
+              delay={idx * 70}
+              className="h-full"
+            >
+              <div
+                onClick={onOpenBooking}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onOpenBooking();
+                  }
+                }}
+                className="group bg-white rounded-3xl p-6 sm:p-7 border border-[#e5edf0] hover:border-[#33a9b1] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,168,188,0.12)] transition-all duration-300 flex flex-col justify-between h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#33a9b1] card-hover-lift"
+              >
+                {/* Top Row: Social Icons (Left) + Doctor Photo (Right) */}
+                <div className="flex items-center justify-between gap-4 mb-6 sm:mb-8">
+                  {/* Circular Social Buttons List (f, X, Instagram, in) */}
+                  <div
+                    className="flex items-center gap-2 sm:gap-2.5"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {/* Facebook Icon */}
+                    <a
+                      href="#facebook"
+                      aria-label={`${doc.name} Facebook`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#edf5f9] text-[#1e293b] flex items-center justify-center font-bold text-xs sm:text-sm hover:bg-[#33a9b1] hover:text-white transition-all duration-200"
+                    >
+                      f
+                    </a>
+
+                    {/* X (Twitter) Icon */}
+                    <a
+                      href="#twitter"
+                      aria-label={`${doc.name} X`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#edf5f9] text-[#1e293b] flex items-center justify-center hover:bg-[#33a9b1] hover:text-white transition-all duration-200"
+                    >
+                      <svg
+                        className="w-3.5 h-3.5 fill-current"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </a>
+
+                    {/* Instagram Icon */}
+                    <a
+                      href="#instagram"
+                      aria-label={`${doc.name} Instagram`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#edf5f9] text-[#1e293b] flex items-center justify-center hover:bg-[#33a9b1] hover:text-white transition-all duration-200"
+                    >
+                      <svg
+                        className="w-4 h-4 stroke-current fill-none stroke-[2]"
+                        viewBox="0 0 24 24"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                      </svg>
+                    </a>
+
+                    {/* LinkedIn Icon */}
+                    <a
+                      href="#linkedin"
+                      aria-label={`${doc.name} LinkedIn`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#edf5f9] text-[#1e293b] flex items-center justify-center font-bold text-xs sm:text-sm hover:bg-[#33a9b1] hover:text-white transition-all duration-200"
+                    >
+                      in
+                    </a>
+                  </div>
+
+                  {/* Doctor Avatar/Photo */}
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border border-slate-100 bg-slate-50 shadow-xs">
+                    <Image
+                      src={doc.image}
+                      alt={doc.name}
+                      fill
+                      sizes="96px"
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Bottom Section: Name + Role | Experience */}
+                <div className="space-y-1.5">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#050c14] group-hover:text-[#33a9b1] transition-colors leading-snug">
+                    {doc.name}
+                  </h3>
+                  <div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm font-medium text-[#788094]">
+                    <span>{doc.role}</span>
+                    <span className="text-slate-300">|</span>
+                    <span className="text-[#00a8bc] font-semibold">
+                      Experience: {doc.experience}
                     </span>
                   </div>
                 </div>
               </div>
-
-              {/* BMDC Verified Pill */}
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-full shadow-sm border border-teal-500/30 whitespace-nowrap flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
-                <span>{clinic.doctor.bmdc}</span>
-              </div>
-            </div>
-
-            <div className="mt-8 space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-semibold">
-                <Award className="w-3.5 h-3.5 text-teal-700" />
-                <span>অভিজ্ঞতা: {clinic.doctor.experience}</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 pt-1">
-                {clinic.doctor.name}
-              </h3>
-              <p className="text-sm font-semibold text-teal-700">
-                {clinic.doctor.specialty}
-              </p>
-              <p className="text-xs text-slate-500">
-                {clinic.doctor.designation}
-              </p>
-            </div>
-          </div>
-
-          {/* Right Information Column */}
-          <div className="lg:col-span-7 space-y-5">
-            <div>
-              <span className="text-xs font-bold text-teal-700 uppercase tracking-wide">
-                বিশেষজ্ঞ চিকিৎসক প্রোফাইল
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 tracking-tight">
-                অভিজ্ঞ ডেন্টাল সার্জনের সরাসরি তত্ত্বাবধানে নিরাপদ সেবা
-              </h2>
-            </div>
-
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              {clinic.name}-এর প্রধান লক্ষ্য প্রতিটি রোগীকে ভীতিহীন, আন্তর্জাতিক মানের নিরাপদ ও ব্যথাহীন চিকিৎসা সেবা প্রদান করা। দীর্ঘদিনের ক্লিনিক্যাল দক্ষতা এবং সর্বাধুনিক মেডিকেল প্রযুক্তির সমন্বয়ে আমরা রোগীদের মুখে সুন্দর ও আত্মবিশ্বাসী হাসি ফিরিয়ে দিতে অঙ্গীকারবদ্ধ।
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-              <div className="p-4 rounded-xl bg-white border border-slate-200/90 flex items-start gap-3 shadow-2xs">
-                <GraduationCap className="w-5 h-5 text-teal-700 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-xs font-bold text-slate-900">উচ্চতর ট্রেনিং ও ডিগ্রি</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    আধুনিক এন্ডোডন্টিক্স, ডেন্টাল ইমপ্ল্যান্ট ও নান্দনিক কসমেটিক ওরাল কেয়ার।
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white border border-slate-200/90 flex items-start gap-3 shadow-2xs">
-                <HeartHandshake className="w-5 h-5 text-teal-700 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-xs font-bold text-slate-900">ভয়হীন ও শিশুবান্ধব পরিবেশ</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    রোগীর মানসিক স্বাচ্ছন্দ্য নিশ্চিত করে সম্পূর্ণ ব্যথামুক্ত চিকিৎসা পদ্ধতি।
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <button
-                onClick={onOpenBooking}
-                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 active:scale-[0.98] text-white font-semibold text-xs sm:text-sm shadow-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 min-h-[44px] cursor-pointer"
-              >
-                <Calendar className="w-4 h-4 text-teal-100" />
-                <span>ডাক্তারের অ্যাপয়েন্টমেন্ট নিন</span>
-              </button>
-
-              <a
-                href={`tel:${clinic.phone.replace(/[^0-9]/g, "")}`}
-                className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 active:scale-[0.98] text-slate-800 font-medium text-xs sm:text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 min-h-[44px]"
-              >
-                <Phone className="w-4 h-4 text-teal-600" />
-                <span>সরাসরি কল: {clinic.phone}</span>
-              </a>
-            </div>
-
-          </div>
-
+            </RevealOnScroll>
+          ))}
         </div>
-
       </div>
     </section>
   );

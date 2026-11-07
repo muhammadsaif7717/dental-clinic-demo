@@ -1,39 +1,74 @@
 @import "tailwindcss";
 
 @theme {
-  --breakpoint-xs: 420px;
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
+  --color-primary: #33a9b1;
+  --color-primary-dark: #288c93;
+  --color-primary-light: #e6f7f8;
+  --color-secondary: #1f3d3f;
+  --color-secondary-dark: #132728;
+  --color-headings: #050c14;
+  --color-body: #47697b;
+  --color-shade: #dee8de;
+  --color-border-subtle: #d8dde1;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #050c14;
+  --primary: #33a9b1;
+  --primary-dark: #288c93;
+  --secondary: #1f3d3f;
+  --headings-color: #050c14;
+  --body-color: #47697b;
+  --shade: #dee8de;
+  --theme-border: #d8dde1;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--body-color);
+  font-family: var(--font-dm-sans), var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Accessible focus ring standard (Vercel Guidelines) */
 *:focus-visible {
-  outline: 2px solid #0d9488;
+  outline: 2px solid #33a9b1;
   outline-offset: 2px;
 }
 
-/* Subtle Medical / Dental Grid Pattern */
-.medical-pattern {
-  background-color: #ffffff;
-  background-image: radial-gradient(rgba(13, 148, 136, 0.08) 1px, transparent 1px), radial-gradient(rgba(14, 165, 233, 0.05) 1px, #ffffff 1px);
-  background-size: 28px 28px;
-  background-position: 0 0, 14px 14px;
+/* Marquee continuous scroll animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* Smooth keyframes */
@@ -42,29 +77,49 @@ body {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
   }
 }
 
 @keyframes pulseGlow {
   0%, 100% {
-    opacity: 0.3;
+    opacity: 0.25;
     transform: scale(1);
   }
   50% {
-    opacity: 0.55;
-    transform: scale(1.05);
+    opacity: 0.6;
+    transform: scale(1.06);
   }
 }
 
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -73,11 +128,28 @@ body {
 }
 
 .animate-pulse-glow {
-  animation: pulseGlow 6s ease-in-out infinite;
+  animation: pulseGlow 4s ease-in-out infinite;
 }
 
 .animate-slide-up {
-  animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Card hover lift transition */
+.card-hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -8px rgba(31, 61, 63, 0.12);
 }
 
 /* Custom sleek scrollbar */
@@ -85,12 +157,12 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #f5f7fa;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #33a9b1;
 }

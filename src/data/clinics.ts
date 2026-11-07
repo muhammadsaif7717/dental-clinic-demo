@@ -342,7 +342,7 @@ export const DENTAL_CLINICS: DentalClinic[] = [
       bmdc: "BMDC Reg: A-15034",
       experience: "৬+ বছরের বিশেষায়িত অভিজ্ঞতা",
       specialty: "ওরাল অ্যান্ড ম্যাক্সিলোফেসিয়াল সার্জন ও ডেন্টাল ইমপ্ল্যান্ট প্র্যাকটিশনার",
-      image: "https://images.unsplash.com/photo-1594824813501-48c903254348?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80"
     },
     area: "Lalmatia, Dhanmondi, Dhaka",
     address: "1/1E, Block C, Lalmatia (Behind Genetic Plaza, Dhanmondi 27), Dhaka - 1205",
@@ -581,7 +581,7 @@ export const DENTAL_CLINICS: DentalClinic[] = [
       bmdc: "BMDC Reg: A-64210",
       experience: "১০+ বছরের শিক্ষকতা ও ক্লিনিকাল অভিজ্ঞতা",
       specialty: "প্রভাষক, সাপ্পোরো ডেন্টাল কলেজ ও হাসপাতাল",
-      image: "https://images.unsplash.com/photo-1594824813501-48c903254348?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80"
     },
     area: "Uttara, Dhaka",
     address: "House No. 17, Shah Makhdum Avenue, Ground Floor, Sector-14, Uttara, Dhaka - 1230",
